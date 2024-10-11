@@ -1,0 +1,60 @@
+banco siteEscolar
+
+1- responsavel
+	1.1 idResponsavel
+	1.2 nomeResponsavel
+	1.3 cpfResponsavel
+	1.4 dataNascimentoResponsavel
+	1.5 enderecoResponsavel
+	1.6 emailResponsavel
+	1.7 senhaResponsavel
+
+2- aluno
+	2.1 idAluno
+	2.2 nomeAluno
+	2.3 nome_mae_aluno
+	2.4 nome_pai_aluno
+	2.5 cpfAluno
+	2.6 dataNascimentoAluno
+	2.7 emailAluno
+	2.8 senhaAluno
+
+3- funcionario
+	3.1 idFuncionario
+	3.2 nomeFuncionario
+	3.3 cpf_Funcionario
+	3.4 dataNascimentoFuncionario
+	3.5 matriculaFuncionario
+	3.6 funcaoFuncionario
+	3.7 emailFuncionario
+	3.8 senhaFuncionario
+
+4- professor
+	4.1 idProfessor
+	4.2 nomeProfessor
+	4.3 cpfProfessor
+	4.4 dataNascimentoProfessor
+	4.5 matriculaProfessor
+	4.6	emailProfessor
+	4.7 senhaProfessor
+
+5- materia
+	5.1 idMateria
+	5.2 nomeMateria
+		5.2.1. Bimestre_notas_Materia
+			5.2.1.1. notasMateria		
+				5.2.1.1.1 av1Materia
+				5.2.1.1.2 av2Materia
+				5.2.1.1.3 recuperacao
+	5.3 idFinal	
+
+6- frequencia
+	6.1 idFrequencia
+	6.2 dataFrequencia		
+		6.2.1 respostafrequencia
+
+7- turma
+	7.1 idTurma
+	7.2 nivel_escolar_aluno
+		7.2.1 serieAluno
+		7.2.2 turma_aluno

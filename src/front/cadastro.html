@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Cadastro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+            height: 100vh; /* Altura total da tela */
+            display: flex;
+            flex-direction: column;
+        }
+        .background-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10vw; /* Tamanho responsivo do texto */
+            color: rgba(0, 123, 255, 0.2); /* Cor azul clara com transparência */
+            font-weight: bold;
+            white-space: nowrap;
+            pointer-events: none; /* Não interfere na interação com outros elementos */
+            z-index: -1; /* Fica atrás de outros conteúdos */
+            user-select: none; /* Impede a seleção do texto */
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 5%;
+            border-radius: 5px;
+            z-index: 1; /* Garante que o cabeçalho fique acima do texto de fundo */
+            width: 100%; /* Cabeçalho ocupa toda a largura */
+            box-sizing: border-box;
+        }
+        .form-section {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            max-height: 70vh; /* Altura máxima para o formulário */
+            overflow-y: auto; /* Adiciona barra de rolagem vertical se necessário */
+            width: 90%;
+            max-width: 600px; /* Largura máxima do formulário */
+            box-sizing: border-box;
+        }
+        select {
+            color: white;
+            background-color: #007BFF;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px; /* Ajuste o espaço entre os botões */
+            margin-bottom: 15px;
+        }
+        .button-group button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 4px; /* Diminuído o padding dos botões */
+            font-size: 0.7rem; /* Diminuído o tamanho da fonte dos botões */
+            border-radius: 4px;
+            cursor: pointer;
+            flex: 1;
+        }
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+        .selected {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+            .background-text {
+                font-size: 5vw; /* Ajuste para telas menores */
+            }
+            header {
+                padding: 10px 2%;
+            }
+        }
+    </style>
+     <script>
+        function toggleLevel(level) {
+            // Reset all buttons
+            document.getElementById('fundamental-btn').classList.remove('active');
+            document.getElementById('medio-btn').classList.remove('active');
+            document.getElementById('fundamental-options').classList.add('hidden');
+            document.getElementById('medio-options').classList.add('hidden');
+            
+            // Activate the selected level
+            if (level === 'fundamental') {
+                document.getElementById('fundamental-btn').classList.add('active');
+                document.getElementById('fundamental-options').classList.remove('hidden');
+            } else if (level === 'medio') {
+                document.getElementById('medio-btn').classList.add('active');
+                document.getElementById('medio-options').classList.remove('hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="background-text">Nome da Escola</div>
+
+    <header>
+        <div><strong>Nome da Escola</strong></div>
+        <div><strong>Página de Cadastro</strong></div>
+    </header>
+
+    <main style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <h1>Cadastro</h1>
+
+        <label for="role">Selecione o tipo de usuário:</label>
+        <select id="role" onchange="showForm()">
+            <option value=""disabled selected>--Selecione--</option>
+            <option value="aluno">Aluno</option>
+            <option value="funcionario">Funcionário</option>
+            <option value="professor">Professor</option>
+        </select>
+
+        <div id="formAluno" class="form-section" method="POST">
+            <h2>Cadastro de Aluno</h2>
+            <form onsubmit="return validatePassword('senhaAluno', 'confirmaSenhaAluno')">
+                <label for="nomeAluno">Nome Completo:</label>
+                    <input type="text" id="nomeAluno" name="nomeAluno" placeholder="Digite o nome completo" required><br>
+                <label for="nomeMaeAluno">Nome da Mãe:</label>
+                    <input type="text" id="nomeMaeAluno" name="nomeMaeAluno" placeholder="Digite o nome da mãe" required><br>
+                <label for="nomePaiAluno">Nome do Pai:</label>
+                    <input type="text" id="nomePaiAluno" name="nomePaiAluno" placeholder="Digite o nome do pai" required><br>
+                <label for="cpfAluno">CPF:</label>
+                    <input type="number" id="cpfAluno" name="cpfAluno" placeholder="Digite o CPF" required>         
+                <label for="data-nascimento">Data de Nascimento:</label>
+                    <input type="date" id="data-nascimento-aluno" name="data-nascimento" required><br><br>
+                <label for="emailAluno">Email:</label>
+                    <input type="text" id="emailAluno" placeholder="Digite seu email" required><br>  
+                <label for="serieAluno">Série:</label>
+                    <select id="serieAluno" name="serieAluno">
+                        <option value="" disabled selected>--Selecione--</option>
+                        <option value="1">1º</option>
+                        <option value="2">2º</option>
+                        <option value="3">3º</option>
+                    </select><br>
+                <label for="turmaAluno">Turma:</label>
+                    <select name="turmaAluno" id="turmaAluno">
+                        <option value="" disabled selected>--Selecione--</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                </select><br><br>
+                <label for="senhaAluno">Senha:</label>
+                    <input type="password" id="senhaAluno" name="senhaAluno" placeholder="Digite a senha" required><br>
+                <label for="confirmaSenhaAluno">Repita a Senha:</label>
+                    <input type="password" id="confirmaSenhaAluno" name="confirmaSenhaAluno" placeholder="Repita a senha" required><br>
+                    <input type="submit" value="Cadastrar">
+            </form>
+        </div>
+
+        <div id="formFuncionario" class="form-section" method="POST">
+            <h2>Cadastro de Funcionário</h2>
+            <form onsubmit="return validatePassword('senhaFuncionario', 'confirmaSenhaFuncionario')">
+                <label for="nomeFuncionario">Nome Completo:</label>
+                    <input type="text" id="nomeFuncionario" name="nomeFuncionario" placeholder="Digite o nome completo" required><br>
+                <label for="cpfFuncionario">CPF:</label>
+                    <input type="number" id="cpfFuncionario" name="cpfFuncionario" placeholder="Digite o CPF" required>
+                <label for="data-nascimento">Data de Nascimento:</label>
+                    <input type="date" id="data-nascimento" name="data-nascimento" required><br><br>
+                <label for="matricula">Matrícula:</label>
+                    <input type="number" id="matricula" name="matricula" placeholder="Digite a matrícula" required><br><br>
+                <label for="funcaoFuncionario">Função:</label>
+                    <input type="text" id="funcaoFuncionario" name="funcaoFuncionario" placeholder="Digite a função" required><br>
+                <label for="emailFuncionario">Email:</label>
+                    <input type="text" id="emailFuncionario" placeholder="Digite seu email" required><br>  
+                <label for="senhaFuncionario">Senha:</label>
+                    <input type="password" id="senhaFuncionario" name="senhaFuncionario" placeholder="Digite a senha" required><br>
+                <label for="confirmaSenhaFuncionario">Repita a Senha:</label>
+                    <input type="password" id="confirmaSenhaFuncionario" name="confirmaSenhaFuncionario" placeholder="Repita a senha" required><br>
+                    <input type="submit" value="Cadastrar">
+            </form>
+        </div>
+
+        <div id="formProfessor" class="form-section" method="POST">
+            <h2>Cadastro de Professor</h2>
+            <form onsubmit="return validatePassword('senhaProfessor', 'confirmaSenhaProfessor')">
+                <label for="nomeProfessor">Nome Completo:</label>
+                    <input type="text" id="nomeProfessor" name="nomeProfessor" placeholder="Digite o nome completo" required><br>
+                <label for="cpfProfessor">CPF:</label>
+                    <input type="number" id="cpfProfessor" name="cpfProfessor" placeholder="Digite o CPF" required>
+                <label for="data-nascimento">Data de Nascimento:</label>
+                    <input type="date" id="data-nascimento" name="data-nascimento" required><br><br>
+                <label for="matriculaProfessor">Matrícula:</label>
+                    <input type="number" id="matriculaProfessor" name="matriculaProfessor" placeholder="Digite a matrícula" required><br><br>
+                <label for="emailProfessor">Email:</label>
+                    <input type="text" id="emailProfessor" placeholder="Digite seu email" required><br>  
+                <label for="senhaProfessor">Senha:</label>
+                <input type="password" id="senhaProfessor" name="senhaProfessor" placeholder="Digite a senha" required><br>
+                <label for="confirmaSenhaProfessor">Repita a Senha:</label>
+                <input type="password" id="confirmaSenhaProfessor" name="confirmaSenhaProfessor" placeholder="Repita a senha" required><br>
+                <input type="submit" value="Cadastrar">
+            </form>
+        </div>
+    </main>
+
+    <script>
+        function showForm() {
+            var role = document.getElementById('role').value;
+            var sections = document.querySelectorAll('.form-section');
+
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            if (role === 'aluno') {
+                document.getElementById('formAluno').style.display = 'block';
+            } else if (role === 'funcionario') {
+                document.getElementById('formFuncionario').style.display = 'block';
+            } else if (role === 'professor') {
+                document.getElementById('formProfessor').style.display = 'block';
+            }
+        }
+
+        function validatePassword(passwordId, confirmPasswordId) {
+            var password = document.getElementById(passwordId).value;
+            var confirmPassword = document.getElementById(confirmPasswordId).value;
+
+            if (password !== confirmPassword) {
+                alert("As senhas não coincidem. Por favor, tente novamente.");
+                return false;
+            }
+            return true;
+        }
+
+        function selectSerie(value, groupId) {
+            var group = document.getElementById(groupId);
+            var buttons = group.querySelectorAll('button');
+
+            // Desmarcar todos os botões na linha atual
+            buttons.forEach(button => button.classList.remove('selected'));
+
+            // Marcar o botão selecionado
+            event.target.classList.add('selected');
+            document.getElementById('serieAluno').value = value;
+        }
+    </script>
+
+</body>
+</html>
